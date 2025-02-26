@@ -1,0 +1,102 @@
+<!-- Nav -->
+<app-nav></app-nav>
+
+<!-- Presupuesto -->
+<div class="container mt-4">
+    <!--Gestión de gastos-->
+    <div class="container mt-4">
+        <div class="col-md-5 mx-auto">
+            <div class="alert alert-primary fw-bold p-3 rounded-3 text-center">
+                <h5 class="mb-1"><i class="bi bi-cash-stack"></i> Presupuesto:</h5>
+                <input type="number" 
+                        class="form-control text-center fw-bold fs-4 border-0 bg-transparent"
+                        [(ngModel)]="presupuesto">
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- Sección de Ingreso de Gastos -->
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card p-4 rounded-4">
+                <h4 class="text-center fw-bold mb-3 text-primary">
+                    <i class="bi bi-wallet2"></i> Ingresar Gasto
+                </h4>
+
+                <div class="form-group mb-4">
+                    <label for="InputGasto" class="fw-semibold">
+                        <i class="bi bi-pencil-square"></i> Gasto
+                    </label>
+                    <input type="text" id="InputGasto"
+                            class="form-control form-control-lg rounded-3"
+                            placeholder="Ej: Comida..."
+                            [(ngModel)]="nombreGasto">
+                    <!-- Validación + Boostrap -->
+                    <div class="invalid-feedback">
+                        El nombre del gasto es obligatorio.
+                    </div>
+                </div>
+                
+
+                <div class="form-group mb-4">
+                    <label for="InputCantidad" class="fw-semibold">
+                        <i class="bi bi-cash-coin"></i> Cantidad
+                    </label>
+                    <input type="number" id="InputCantidad" 
+                            class="form-control form-control-lg rounded-3"
+                            placeholder="Ingrese cantidad..."
+                            [(ngModel)]="cantidadGastada">
+                        <!-- Validación + Boostrap -->
+                        <div class="invalid-feedback">
+                            La cantidad es obligatoria.
+                        </div>
+                </div>
+
+                <button (click)="agregarGasto()" class="btn btn-primary btn-lg w-100 mt-3 shadow-sm rounded-3">
+                    <i class="bi bi-plus-circle"></i> Añadir Gasto
+                </button>
+            </div>
+        </div>
+
+        <!-- Sección de Listado de Gastos -->
+        <!-- Si el array tiene longitud, es decir, no está vacío, se muestra -->
+        @if (arrayGastos.length) {
+            <div class="col-md-6">
+                <div class="card p-4 rounded-4">
+                    <h5 class="text-center fw-bold mb-3 text-success">
+                        <i class="bi bi-list-ul"></i> Lista de Gastos
+                    </h5>
+    
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped text-center">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Gasto</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let gasto of arrayGastos; let i = index">
+                                    <td>{{ gasto.nombre }}</td>
+                                    <td>{{ gasto.cantidad }}</td>
+                                </tr>
+                            </tbody>
+    
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+    <br>
+    <br>
+
+    <!-- Banner/alert presupuesto superado -->
+    @if (mostrarAlert) {
+        <div class="alert alert-danger text-center fw-bold" role="alert">
+            <i class="bi bi-exclamation-triangle-fill"></i> ¡Has superado tu presupuesto!
+        </div>
+    }
